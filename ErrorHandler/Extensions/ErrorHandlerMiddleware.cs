@@ -30,19 +30,12 @@ namespace UsuarioAPI.Extensions
                     case AppException e:
                         response.StatusCode = e.StatusCode != null ? (int)e.StatusCode : (int)HttpStatusCode.InternalServerError;
                         break;
-
-                    // Add new exception types here
-                    // ##############################################################################################################
-                    // case AppException e:
-                    //     response.StatusCode = (int)HttpStatusCode.InternalServerError;
-                    //     break;
-
                     default:
                         response.StatusCode = (int)HttpStatusCode.InternalServerError;
                         break;
                 }
 
-                var result = JsonSerializer.Serialize(new { status = response.StatusCode, message = error?.Message });
+                var result = JsonSerializer.Serialize(new { message = error?.Message });
                 await response.WriteAsync(result);
             }
         }
